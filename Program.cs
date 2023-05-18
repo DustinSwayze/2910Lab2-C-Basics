@@ -8,11 +8,12 @@ namespace Lab2_C__Basics
     {
         static void Main(string[] args)
         {
-            AddTwoNumbers();
-            NextStep();
-            MultiTable();
-            NextStep();
-            TypeTable();
+            //AddTwoNumbers();
+            //NextStep();
+            //MultiTable();
+            //NextStep();
+            //TypeTable();
+            Calculator();
         }
 
         public static void NextStep()
@@ -95,5 +96,76 @@ namespace Lab2_C__Basics
             return (T)underlyingType.GetField("MaxValue").GetValue(null);
         }
 
+        static void Calculator()
+        {
+            bool exit = false;
+            double result = 0.0;
+            double newResult = 0.0;
+
+            while (!exit)
+            {
+                Console.WriteLine($"Current result is : {result}");
+                Console.WriteLine("Enter 'esc' to exit or enter a new number to continue");
+                string input = Console.ReadLine();
+
+                if (input.ToLower() == "esc")
+                {
+                    exit = true;
+                    break;
+                }
+
+                double num1;
+                if (!double.TryParse(input, out num1))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    continue;
+                }
+
+                Console.WriteLine("Enter an operation (+, -, *, /, %):");
+                string operation = Console.ReadLine();
+
+                Console.WriteLine("Enter the second number: ");
+                double num2;
+                if (!double.TryParse(Console.ReadLine(), out num2))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    continue;
+                }
+
+                switch (operation)
+                {
+                    case "+":
+                        result = num1 + num2;
+                        break;
+                    case "-":
+                        result = num1 - num2;
+                        break;
+                    case "*":
+                        result = num1 * num2;
+                        break;
+                    case "/":
+                        if (num2 != 0)
+                        {
+                            result = num1 / num2;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Division by zero is not allowed.");
+                            continue;
+                        }
+                        break;
+                    case "%":
+                        result = num1 % num2;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid operation. Please enter a valid operation.");
+                        continue;
+                }
+
+                Console.WriteLine("Result: {0}", result);
+            }
+
+            Console.WriteLine("Exiting the calculator.");
+        }
     }
 }
