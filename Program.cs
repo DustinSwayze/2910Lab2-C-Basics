@@ -8,42 +8,40 @@ namespace Lab2_C__Basics
     {
         static void Main(string[] args)
         {
-            //AddTwoNumbers();
-            //NextStep();
-            //MultiTable();
-            //NextStep();
-            //TypeTable();
+            AddTwoNumbers();
+            NextStep();
+            MultiTable();
+            NextStep();
+            TypeTable();
             Calculator();
         }
 
-        public static void NextStep()
+        public static void NextStep() //method for usability. simple press any key to continue
         {
             Console.WriteLine("Press any key to continue:");
             var x = Console.ReadLine();
             Console.Clear();
         }
-        public static void AddTwoNumbers()
+        public static void AddTwoNumbers() //Takes two user inputs, adds them together. basic validation
         {
-            Console.WriteLine("Enter the first number:");
+            Console.WriteLine("Enter the first integer:");
             int input1 = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter the second number:");
+            Console.WriteLine("Enter the second integer:");
             int input2 = Convert.ToInt32(Console.ReadLine());
 
             int sum = input1 + input2;
 
             Console.WriteLine($"{input1} + {input2} = {sum}");
-
-            //make some changes for the pull
         }
 
-        public static void MultiTable()
+        public static void MultiTable() //multiplication table, takes two integers and iterates through the table
         {
 
-            Console.WriteLine("Enter a number:");
+            Console.WriteLine("Enter an integer:");
             int number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter the maximum number to multiply by:");
+            Console.WriteLine("Enter the maximum integer to multiply by:");
             int maxNumber = Convert.ToInt32(Console.ReadLine());
 
             for (int i = 0; i <= maxNumber; i++)
@@ -53,7 +51,7 @@ namespace Lab2_C__Basics
             }
         }
 
-        public static void TypeTable()
+        public static void TypeTable() //call methods for the type table
         {
             DisplayNumberTypeInfo<sbyte>("sbyte");
             DisplayNumberTypeInfo<byte>("byte");
@@ -68,7 +66,7 @@ namespace Lab2_C__Basics
             DisplayNumberTypeInfo<decimal>("decimal");
         }
 
-        static void DisplayNumberTypeInfo<T>(string typeName) where T : struct
+        static void DisplayNumberTypeInfo<T>(string typeName) where T : struct //define constrained type and output as a ConsoleTable
         {
             int sizeInBytes = GetSizeOf<T>();
             T minValue = (T)Convert.ChangeType(GetMinValue<T>(), typeof(T));
@@ -82,21 +80,21 @@ namespace Lab2_C__Basics
         static int GetSizeOf<T>()
         {
             return Marshal.SizeOf(typeof(T));
-        }
+        } //get generic size
 
         static T GetMinValue<T>()
         {
             Type underlyingType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
             return (T)underlyingType.GetField("MinValue").GetValue(null);
-        }
+        } //get generic minvalue
 
         static T GetMaxValue<T>()
         {
             Type underlyingType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
             return (T)underlyingType.GetField("MaxValue").GetValue(null);
-        }
+        } //get generic max value
 
-        static void Calculator()
+        static void Calculator() //very basic calculator. user gets to choose operations
         {
             bool exit = false;
             double result = 0.0;
